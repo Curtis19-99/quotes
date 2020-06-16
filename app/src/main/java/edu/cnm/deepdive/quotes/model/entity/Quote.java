@@ -17,7 +17,7 @@ import androidx.room.PrimaryKey;
 public class Quote {
 
   @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = "source_id")
+  @ColumnInfo(name = "quote_id")
   private long id;
 
   @ColumnInfo(name = "source_id", index = true)

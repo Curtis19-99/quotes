@@ -2,6 +2,7 @@ package edu.cnm.deepdive.quotes.service;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -92,8 +94,9 @@ public abstract class QuotesDatabase extends RoomDatabase {
           quote.setText(record.get(1).trim());
           quotes.add(quote);
         }
+        Log.d(getClass().getName(), map.toString());
         return map;
-        }
+      }
     }
 
     @SuppressLint("CheckResult")
@@ -104,6 +107,7 @@ public abstract class QuotesDatabase extends RoomDatabase {
       List<Source> sources = new LinkedList<>(map.keySet());
       List<Quote> unattributed = map.getOrDefault(null, Collections.emptyList());
       sources.remove(null);
+      //noinspection ResultOfMethodCallIgnored
       sourceDao.insert(sources)
           .subscribeOn(Schedulers.io())
           .flatMap((sourceIds) -> {
@@ -114,6 +118,7 @@ public abstract class QuotesDatabase extends RoomDatabase {
               long sourceId = idIterator.next();
               for (Quote quote : map.getOrDefault(sourceIterator.next(), Collections.emptyList())) {
                 quote.setSourceId(sourceId);
+                quotes.add(quote);
               }
             }
             quotes.addAll(unattributed);

@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 import edu.cnm.deepdive.quotes.model.entity.Quote;
 import edu.cnm.deepdive.quotes.model.entity.Source;
+import edu.cnm.deepdive.quotes.model.pojo.QuoteWithSource;
 import io.reactivex.Single;
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +29,7 @@ public interface QuoteDao {
   Single<Integer> delete(Quote... quotes);
 
   @Query("SELECT * FROM Quote ORDER BY text")
-  Single<List<Quote>> selectAll();
+  Single<List<QuoteWithSource>> selectAll();
 
 
 }

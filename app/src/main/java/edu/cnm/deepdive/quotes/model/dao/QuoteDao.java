@@ -5,9 +5,9 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 import edu.cnm.deepdive.quotes.model.entity.Quote;
-import edu.cnm.deepdive.quotes.model.entity.Source;
 import edu.cnm.deepdive.quotes.model.pojo.QuoteWithSource;
 import io.reactivex.Single;
 import java.util.Collection;
@@ -28,8 +28,10 @@ public interface QuoteDao {
   @Delete
   Single<Integer> delete(Quote... quotes);
 
+  @Transaction
   @Query("SELECT * FROM Quote ORDER BY text")
   Single<List<QuoteWithSource>> selectAll();
 
-
+  @Query("SELECT * FROM Quote WHERE source_id = :sourceId")
+  Single<List<Quote>> selectBySourceId(Long sourceId);
 }

@@ -49,7 +49,7 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
     return throwable;
   }
 
-  public void setQuoteId(long id) {
+  public void setQuoteId(long id) { //
     throwable.setValue(null);
     pending.add(
         quoteRepository.get(id)
@@ -60,7 +60,7 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
     );
   }
 
-  public void saveQuote(Quote quote) {
+  public void saveQuote(Quote quote) { //
     throwable.setValue(null);
     pending.add(
         quoteRepository.save(quote)
@@ -72,7 +72,7 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
     );
   }
 
-  public void deleteQuote(Quote quote) {
+  public void deleteQuote(Quote quote) { //
     throwable.setValue(null);
     pending.add(
         quoteRepository.delete(quote)

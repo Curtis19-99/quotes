@@ -1,23 +1,24 @@
 ## Data Definition Language (DDL)
 
 ```sqlite
-create table if not exists `Source`
+CREATE TABLE IF NOT EXISTS `Source`
 (
-    `source_id` integer primary key autoincrement not null,
-    `name`      text                              not null collate NOCASE
+    `source_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    `name`      TEXT                              NOT NULL COLLATE NOCASE
 );
 
-create unique index if not exists `index_Source_name` on `Source` (`name`);
+CREATE UNIQUE INDEX IF NOT EXISTS `index_Source_name` ON `Source` (`name`);
 
-create table if not exists `Quote`
+CREATE TABLE IF NOT EXISTS `Quote`
 (
-    `quote_id`  integer primary key autoincrement not null,
-    `source_id` integer,
-    `text`      text                              not null collate NOCASE,
-    foreign key (`source_id`) references `Source` (`source_id`) on update no action on delete set null
+    `quote_id`  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    `created`   INTEGER,
+    `source_id` INTEGER,
+    `text`      TEXT                              NOT NULL COLLATE NOCASE,
+    FOREIGN KEY (`source_id`) REFERENCES `Source` (`source_id`) ON UPDATE NO ACTION ON DELETE SET NULL
 );
 
-create index if not exists `index_Quote_source_id` on `Quote` (`source_id`);
+CREATE INDEX IF NOT EXISTS `index_Quote_source_id` ON `Quote` (`source_id`);
 ```
 
 [`ddl.sql`](sql/ddl.sql)
